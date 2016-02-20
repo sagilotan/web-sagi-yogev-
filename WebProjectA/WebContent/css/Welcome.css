@@ -1,0 +1,10 @@
+@CHARSET "windows-1255";
+
+.RegBox,.HPPhoto{
+  border: 1px solid grey;
+  background-color: slategrey;
+}
+
+.container{
+  background-color: #212121; 
+}

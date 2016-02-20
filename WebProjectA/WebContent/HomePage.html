@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Web-app</title>
+  <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+
+	<script type="text/javascript">
+
+	function startTime() {	
+	var today = new Date()
+	var h = today.getHours()
+	var m = today.getMinutes()
+	var s = today.getSeconds()
+	// add a zero in front of numbers<10
+	m = checkTime(m)
+	s = checkTime(s)
+	document.getElementById('txt').innerHTML = h+":"+m+":"+s
+	t=setTimeout('startTime()',500)
+	}
+	function checkTime(i) {
+	if (i<10) {i="0" + i}
+	return i
+	}
+
+	
+	</script>
+	
+	<script type="text/javascript">function myFunction() {
+	    location.reload();
+	}</script>
+
+</head>
+<body onload="startTime()">
+
+
+<div id="txt"></div>
+<button onclick="myFunction()">Reload page</button>
+<div class="container">
+
+<div class=jumbotron>
+	  <h1>Head Line</h1>
+	  <h3>This is some text.</h3>
+	</div>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <div class="navbar-brand">WebSiteName</div>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="HomePage.html">Home</a></li>
+      <li><a href="AddQuestion.html">add Question</a></li>
+      <li><a href="NewQuestions.html">New Questions</a></li> 
+      <li><a href="Questions.html">Browse Questions</a></li> 
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="WelcomePage.html"><span class="glyphicon glyphicon-log-in"></span>Sign Out</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+<div ng-app="myApp" ng-controller="myCtrl"> 
+
+<p>Today's welcome message is:</p>
+<h1>{{myWelcome}}</h1>
+
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $http) {
+    $http.get("Name")
+    .then(function(response) {
+        $scope.myWelcome = response.data;
+    });
+});
+</script>
+	
+
+
+
+</div>
+
+
+
+
+
+
+</body>
+
+  </html>

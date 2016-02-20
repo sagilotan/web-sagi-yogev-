@@ -1,0 +1,62 @@
+
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import org.apache.tomcat.dbcp.dbcp.BasicDataSource; 
+
+
+
+/**
+ * Servlet implementation class GetName
+ */
+
+public class GetName extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public GetName() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		HttpSession session = req.getSession(false);
+		PrintWriter writer = res.getWriter();
+    	writer.println(session.getAttribute("usName"));
+    	writer.close();
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}

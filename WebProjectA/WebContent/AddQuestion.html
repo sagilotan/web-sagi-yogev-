@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Web-app</title>
+  <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<script type="text/javascript">
+
+	function startTime() {
+	var today = new Date()
+	var h = today.getHours()
+	var m = today.getMinutes()
+	var s = today.getSeconds()
+	// add a zero in front of numbers<10
+	m = checkTime(m)
+	s = checkTime(s)
+	document.getElementById('txt').innerHTML = h+":"+m+":"+s
+	t=setTimeout('startTime()',500)
+	}
+	function checkTime(i) {
+	if (i<10) {i="0" + i}
+	return i
+	}
+
+	</script>
+
+</head>
+<body onload="startTime()">
+
+
+<div id="txt"></div>
+
+<div class="container">
+
+<div class=jumbotron>
+	  <h1>Head Line</h1>
+	  <h3>This is some text.</h3>
+	</div>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <div class="navbar-brand">WebSiteName</div>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="HomePage.html">Home</a></li>
+      <li class="active"><a href="AddQuestion.html">add Question</a></li>
+      <li><a href="NewQuestions.html">New Questions</a></li> 
+      <li><a href="Questions.html">Browse Questions</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="WelcomePage.html"><span class="glyphicon glyphicon-log-in"></span>Sign Out</a></li>
+    </ul>
+  </div>
+</nav>
+
+<form role="form" method="get" action="AddQ">
+  <div class="form-group">
+    <label for="topic">topics</label>
+    <input name="topics" type="text" class="form-control" id="topic">
+  </div>
+  <label for="Ques">The question</label>
+  <div class="form-group">
+    <textarea name="message" rows="6" cols="50" class="form-contorl" id="Ques">
+</textarea>
+  </div>
+ 
+  <button type="submit" class="btn btn-default">Upload</button>
+</form>
+
+
+
+</div>
+
+
+	
+
+
+
+
+
+
+</body>
+
+  </html>

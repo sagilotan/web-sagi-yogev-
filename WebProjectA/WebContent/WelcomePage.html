@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en"  >
+<head>
+	<title>Web-app</title>
+  <link rel="stylesheet" type="text/css" href="bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/Welcome.css">
+	
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<script type="text/javascript">
+
+	function startTime() {
+	var today = new Date()
+	var h = today.getHours()
+	var m = today.getMinutes()
+	var s = today.getSeconds()
+	// add a zero in front of numbers<10
+	m = checkTime(m)
+	s = checkTime(s)
+	document.getElementById('txt').innerHTML = h+":"+m+":"+s
+	t=setTimeout('startTime()',500)
+	}
+	function checkTime(i) {
+	if (i<10) {i="0" + i}
+	return i
+	}
+
+	</script>
+
+<script src="jquery-1.11.3.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+
+</head>
+<body onload="startTime()">
+	<div id="txt"></div>
+	<div class="container">
+		<div class=jumbotron>
+	  <h1>Head Line</h1>
+	  <h3>This is some text.</h3>
+	</div>
+		<div class="row HPhelloPhoto">
+      <div class="col-sm-4 RegBox">
+        
+	<form role="form" method="get" action="Login">
+  <div class="form-group">
+    <label for="Unm">UserName:</label>
+    <input name="username" type="text" class="form-control" id="Unm" maxlength="10" required>
+  </div>
+  <div class="form-group">
+    <label for="Pwd">Password:</label>
+    <input name="password" type="password" class="form-control" id="pwd" maxlength="8" required>
+  </div>
+  
+	<div class="row">
+		<div class="col-sm-4">
+  <button type="submit" value="send"  class="btn btn-success">login</button>
+</div>
+</form>
+<div class="col-sm-8">
+<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#Reg">not registered?/sign up</button>
+
+<div id="Reg" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+  <div class="modal-content">
+<div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Register</h4>
+      </div>
+      <div class="modal-body">
+      
+        <form role="form" method="get" action="Register">
+  <div class="form-group">
+    <label for="Unm">UserName:</label>
+    <input name="username" type="text" class="form-control" id="Unm" maxlength="10" required>
+  </div>
+  <div class="form-group">
+    <label for="Pwd">Password:</label>
+    <input name="password" type="password" class="form-control" id="pwd" maxlength="8" required>
+  </div>
+  <div class="form-group">
+    <label for="Nn">NickName:</label>
+    <input name="NickName" type="text" class="form-control" id="NN" maxlength="20" required>
+  </div>
+  <div class="form-group">
+    <label for="Desc">Description:</label>
+    <input name="Desc" type="text" class="form-control" id="Desc" maxlength="50">
+  </div>
+  <div class="form-group">
+    <label for="Img">Img URL:</label>
+    <input name="ImgURL" type="text" class="form-control" id="Img">
+  </div>
+  
+  <button type="submit" value="send" class="btn btn-success">Register</button>
+
+</form>
+        
+              </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+</div>
+
+</div>
+</div>
+
+
+</div>
+
+</div>
+	</div>
+  <div class="col-sm-8 HPPhoto">
+<h3>
+	join us or something..
+</h3>
+  </div>
+
+</div>
+<div class="row">
+ <div class="col-sm-4">
+   <h3>fetaure </h3>
+ </div>
+ <div class="col-sm-4">
+<h3>fetaure </h3>
+ </div>
+ <div class="col-sm-4">
+<h3>fetaure </h3>
+ </div>
+</div>
+<div class="row">
+something about the website...
+</div>
+<div class="row footer">
+<h3>footer </h3>
+</div>
+</div> <!--main container-->
+
+
+
+
+</body>
+
+</html>

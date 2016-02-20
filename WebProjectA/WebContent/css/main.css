@@ -1,0 +1,100 @@
+@CHARSET "windows-1255";
+.Question{
+  border: 1px solid grey;
+  background-color: white;
+  width:400px;
+  margin:auto;
+  margin-bottom:20px;
+}
+
+.QTop{
+	border-bottom:1px solid grey;
+}
+
+.TheQ{
+	border-bottom:1px solid grey;
+}
+
+.container{
+  background-color: #212121; 
+}
+
+
+.voteQ label{
+	display:inline;
+}
+
+.voteQ input[type="radio"] {
+    display:none;
+}
+
+.voteQ input[type="radio"] + label {
+margin-left: 0.4rem;
+}
+
+.voteQ input[type="radio"] + label span {
+    display:inline-block;
+    width:2rem;
+    height:2rem;
+    background-color: white;
+    cursor:pointer;
+    border-radius: 0.4rem;
+}
+
+.voteQ input[type="radio"] + label span:hover{
+  background-color: #4070ff;
+}
+
+.voteQ input[type="radio"]:checked + label span {
+background-color: #4070ff;
+}
+
+.disabled{
+	visibility: hidden;
+	
+}/* for button submit if user already vote */
+
+
+.cantVote{
+	visibility: hidden;
+}
+
+.disabled + p{
+	visibility: visible;
+}
+
+.expand{
+	cursor: pointer;
+}
+
+.expandCon{
+	font-size:130%;
+	text-align:center;
+	width:400px;
+	border:1px solid black;
+}
+
+.disnone{
+	display:none;
+}
+
+
+
+.expand + input[type=checkbox] + div {
+	
+	display:none;
+}
+
+.expand + input[type=checkbox]:checked + div {
+	
+
+	display:block;
+	
+}
+
+.trans{
+	
+}
+
+
+

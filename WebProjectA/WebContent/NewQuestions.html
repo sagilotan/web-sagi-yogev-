@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Web-app</title>
+  <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+<meta name="viewport" content="width=device-width, initial-scale=1" >
+
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('questionsCtrl', function($scope, $http) {
+    $http.get("NewQ").then(function(response) {
+        $scope.myData = response.data;
+    });
+    
+})
+
+app.controller('voteCtrl', function($scope) {
+    $scope.UpVote=function(){
+    	$.post("UDVQues",{
+            Id: $scope.x.Id,
+            value: 1
+        });
+    	location.reload();}
+    
+    $scope.DownVote=function(){
+    	$.post("UDVQues",{
+            Id: $scope.x.Id,
+            value: -1
+        });
+    	location.reload();}
+    })
+
+
+;
+</script>
+
+
+
+	<script type="text/javascript">
+
+	function startTime() {
+		
+	var today = new Date()
+	var h = today.getHours()
+	var m = today.getMinutes()
+	var s = today.getSeconds()
+	// add a zero in front of numbers<10
+	m = checkTime(m)
+	s = checkTime(s)
+	document.getElementById('txt').innerHTML = h+":"+m+":"+s
+	t=setTimeout('startTime()',500)
+	}
+	function checkTime(i) {
+	if (i<10) {i="0" + i}
+	return i
+	}
+
+	</script>
+
+</head>
+<body onload="startTime()">
+
+
+<div id="txt"></div>
+
+
+<div class="container">
+
+<div class=jumbotron>
+	  <h1>Head Line</h1>
+	  <h3>This is some text.</h3>
+	</div>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <div class="navbar-brand">WebSiteName</div>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="HomePage.html">Home</a></li>
+      <li><a href="AddQuestion.html">add Question</a></li>
+      <li class="active"><a href="NewQuestions.html">New Questions</a></li> 
+      <li><a href="Questions.html">Browse Questions</a></li> 
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="WelcomePage.html"><span class="glyphicon glyphicon-log-in"></span>Sign Out</a></li>
+    </ul>
+    
+  </div>
+ 
+</nav>
+
+<h3>New questions:</h3>	
+
+<div ng-app="myApp" ng-controller="questionsCtrl">
+<div class="Question" ng-repeat="x in myData">
+<h4>{{x.Id}}</h4>
+<h4>created by:{{x.UsNN}}</h4>
+<h4 >in:{{x.Time}}</h4>
+<h4 class="QTop">topics:{{x.Topics}}</h4>
+<div class="TheQ">
+{{x.Message}}
+</div>
+<p>rating:{{x.Rating}}</p>
+
+<div ng-controller="voteCtrl">
+<button class="btn btn-default {{x.UserVote}}" ng-click="UpVote()">upvote</button>
+<button class="btn btn-default {{x.UserVote}}" ng-click="DownVote()">downvote</button>
+<p class="cantVote">You cant Vote</p>
+</div>
+
+<div class="answerQ">
+<form method="get" action="AnswerQ">
+<label for="Ans">Write your answer:</label>
+<textarea name="{{x.Id}}" rows="6" cols="50" id="Ans">
+</textarea>
+<button type="submit" class="btn btn-default">Answer</button>
+</form>
+</div>
+
+</div>
+</div> <!--myApp(ng)-->
+
+</div> <!--container-->
+
+
+
+</body>
+
+  </html>
