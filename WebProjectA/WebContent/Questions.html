@@ -121,6 +121,7 @@ $(document).ready(function(){
       <li><a href="AddQuestion.html">add Question</a></li>
       <li ><a href="NewQuestions.html">New Questions</a></li> 
       <li class="active"><a href="Questions.html">Browse Questions</a></li> 
+      <li><a href="LeaderBoard.html">Users LeaderBoard</a></li> 
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="WelcomePage.html"><span class="glyphicon glyphicon-log-in"></span>Sign Out</a></li>
@@ -133,7 +134,7 @@ $(document).ready(function(){
 <h3>Browse Questions:</h3>	
 
 <div ng-app="myApp" ng-controller="questionsCtrl">
-<div class="Question" ng-repeat="x in myData">
+<div class="Question" ng-repeat="x in myData | orderBy : 'AvgRating' :true | limitTo:20">
 <h4>{{x.Id}}</h4>
 <h4>created by:{{x.UsNN}}</h4>
 <h4 >in:{{x.Time}}</h4>
@@ -169,8 +170,8 @@ $(document).ready(function(){
 <p>rating:{{x.Ans.Rating}}</p>
 
 <div ng-controller="AvoteCtrl2">
-<button class="btn btn-default " ng-click="AUpVote2()">upvote</button>
-<button class="btn btn-default " ng-click="ADownVote2()">downvote</button>
+<button class="btn btn-default {{x.Ans.UserVote}}" ng-click="AUpVote2()">upvote</button>
+<button class="btn btn-default {{x.Ans.UserVote}}" ng-click="ADownVote2()">downvote</button>
 <p class="cantVote">You cant Vote</p>
 </div>
 
@@ -191,8 +192,8 @@ $(document).ready(function(){
 <p>rating:{{ans.Rating}}</p>
 
 <div ng-controller="AvoteCtrl">
-<button class="btn btn-default " ng-click="AUpVote()">upvote</button>
-<button class="btn btn-default " ng-click="ADownVote()">downvote</button>
+<button class="btn btn-default {{ans.UserVote}}" ng-click="AUpVote()">upvote</button>
+<button class="btn btn-default {{ans.UserVote}}" ng-click="ADownVote()">downvote</button>
 <p class="cantVote">You cant Vote</p>
 </div>
 

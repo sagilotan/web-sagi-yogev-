@@ -63,8 +63,84 @@ public class example extends HttpServlet {
 		BasicDataSource ds = (BasicDataSource)context.lookup("java:comp/env/jdbc/DatasourceA");
 		Connection conn = ds.getConnection();
 		Statement stmt=conn.createStatement();
-		 //int a= stmt.executeUpdate(b);
-		//out.println(a);
+		
+		/** String  drop="DROP TABLE VotedAns";
+		 
+		 stmt.executeUpdate(drop);
+		
+		drop="DROP TABLE VotedQues";
+		 
+		 stmt.executeUpdate(drop);
+		
+		
+		drop="DROP TABLE Answers";
+		 
+		 stmt.executeUpdate(drop);
+		
+		drop="DROP TABLE Ques";
+			
+			stmt.executeUpdate(drop);
+		
+		
+		
+		
+		
+		String create ="CREATE TABLE Ques("
+				+ "Id int primary key generated always as identity,"
+				+ "Topics varchar(50),"
+				+ "TheQues varchar(300) NOT NULL, "
+				+ "Time TIMESTAMP,"
+				+ "UserName varchar(10) NOT NULL,"
+				+ "NickName varchar(20),"
+				+ "Answers int,"
+				+ "QuesRate int,"
+				+ "FOREIGN KEY (UserName) REFERENCES Users(UserName)"
+				+ ")";
+		
+		
+		stmt.executeUpdate(create);
+		
+		System.out.println("!!!!!!!!!!!");
+		
+		
+		 
+		create ="CREATE TABLE Answers("
+				+ "AnsId int primary key generated always as identity,"
+				+ "Id int,"
+				+ "TheAns varchar(300) NOT NULL, "
+				+ "Time TIMESTAMP,"
+				+ "UserName varchar(10) NOT NULL,"
+				+ "NickName varchar(20),"
+				+ "AnsRate int,"
+				+ "FOREIGN KEY (UserName) REFERENCES Users(UserName),"
+				+ "FOREIGN KEY (Id) REFERENCES Ques(Id)"
+				+ ")";
+		
+		 
+			stmt.executeUpdate(create);
+			
+			System.out.println("!!!!!!!!!!!");
+		
+		 create="CREATE TABLE VotedQues(Id int,UserName varchar(10) NOT NULL,FOREIGN KEY (UserName) REFERENCES Users(UserName),"
+					+ "FOREIGN KEY (Id) REFERENCES Ques(Id))";
+			
+			 
+				stmt.executeUpdate(create);
+				
+				System.out.println("!!!!!!!!!!!");
+		 
+		 
+		 create="CREATE TABLE VotedAns(AnsId int,UserName varchar(10) NOT NULL,FOREIGN KEY (UserName) REFERENCES Users(UserName),"
+				+ "FOREIGN KEY (AnsId) REFERENCES Answers(AnsId))";    
+		
+		
+			stmt.executeUpdate(create);
+			
+			System.out.println("!!!!!!!!!!!"); */
+		 
+		
+		
+		
 		
 		 ResultSet rs=stmt.executeQuery(select);
 		if(rs.next()){

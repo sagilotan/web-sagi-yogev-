@@ -66,17 +66,20 @@ public class BrowseQues extends HttpServlet {
 			rs=stmt.executeQuery(s);
 			String get="";
 			String votedAns="";
+			int sum,a=0;//holding the sum of rating answers for question
+			double temp=0;
 			while (rs.next()){
+				sum=0; //intallize to 0 each time
 				
 				get="select * from VotedQues where Id=" + rs.getInt("Id") + "and UserName='" + usName + "'";
 				gs=st.executeQuery(get);
 				
-				get="select * from Answers where Id=" + rs.getInt("Id"); //get all the answers
+				get="select * from Answers where Id=" + rs.getInt("Id") + " order by AnsRate"; //get all the answers
 				ms=stmt2.executeQuery(get);
 				FirstAns=null;
 				if(ms.next()){    //first answer
-					
-					votedAns="select * from VotedQues where Id=" + ms.getInt("AnsId") + "and UserName='" + usName + "'";
+					sum=sum+ms.getInt("AnsRate");
+					votedAns="select * from VotedAns where AnsId=" + ms.getInt("AnsId") + "and UserName='" + usName + "'";
 					as=st2.executeQuery(votedAns);
 					if(as.next()||usName.equals(ms.getString("UserName"))){	//meaning user ALREADY voted or he is the one who upload answer
 				      FirstAns=new Answer(ms.getInt("AnsId"),ms.getString("TheAns"),ms.getString("Time"),ms.getString("NickName"),ms.getInt("AnsRate"),"disabled");
@@ -91,18 +94,34 @@ public class BrowseQues extends HttpServlet {
 				
 				Answers=new ArrayList<Answer>(); //rest of the answers
 				while(ms.next()){
+					sum=sum+ms.getInt("AnsRate");
+					votedAns="select * from VotedAns where AnsId=" + ms.getInt("AnsId") + "and UserName='" + usName + "'";
+					as=st2.executeQuery(votedAns);
+					if(as.next()||usName.equals(ms.getString("UserName"))){	//meaning user ALREADY voted or he is the one who upload answer	
+				Answers.add(new Answer(ms.getInt("AnsId"),ms.getString("TheAns"),ms.getString("Time"),ms.getString("NickName"),ms.getInt("AnsRate"),"disabled"));	
+					}
 					
-				Answers.add(new Answer(ms.getInt("AnsId"),ms.getString("TheAns"),ms.getString("Time"),ms.getString("NickName"),ms.getInt("AnsRate"),""));	
+					else{
+				Answers.add(new Answer(ms.getInt("AnsId"),ms.getString("TheAns"),ms.getString("Time"),ms.getString("NickName"),ms.getInt("AnsRate"),"active"));
+					}
 				
+				}//end of while that get throw answers
+				
+				a=rs.getInt("Answers");
+				if(a==0){
+					temp=(rs.getInt("QuesRate")*0.2);
+				}
+				else{
+				temp=(((double)sum/a)*0.8+(rs.getInt("QuesRate")*0.2));
+				//System.out.println(((double)sum/a)*0.8 + "," + (rs.getInt("QuesRate")*0.2));
 				}
 				
-				
 				if(gs.next()||usName.equals(rs.getString("UserName"))){ //meaning user ALREADY voted or he is the one who upload question
-				Questions.add(new Question(rs.getInt("Id"),rs.getString("Topics"), rs.getString("TheQues"), rs.getString("Time"), rs.getString("NickName"),rs.getInt("Answers"), rs.getInt("QuesRate"),"disabled",FirstAns,Answers));
+				Questions.add(new Question(rs.getInt("Id"),rs.getString("Topics"), rs.getString("TheQues"), rs.getString("Time"), rs.getString("NickName"),rs.getInt("Answers"),temp, rs.getInt("QuesRate"),"disabled",FirstAns,Answers));
 				}
 				
 				else{ //meaning user NOT voted
-				Questions.add(new Question(rs.getInt("Id"),rs.getString("Topics"), rs.getString("TheQues"), rs.getString("Time"), rs.getString("NickName"),rs.getInt("Answers"), rs.getInt("QuesRate"),"active",FirstAns,Answers));
+				Questions.add(new Question(rs.getInt("Id"),rs.getString("Topics"), rs.getString("TheQues"), rs.getString("Time"), rs.getString("NickName"),rs.getInt("Answers"),temp,rs.getInt("QuesRate"),"active",FirstAns,Answers));
 				}
 				
 			} //end of while that get questions

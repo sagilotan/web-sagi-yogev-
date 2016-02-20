@@ -66,11 +66,11 @@ public class NewQues extends HttpServlet {
 				gs=st.executeQuery(get);
 					
 				if(gs.next()||usName.equals(rs.getString("UserName"))){ //meaning user ALREADY voted or he is the one who upload question
-				Questions.add(new Question(rs.getInt("Id"),rs.getString("Topics"), rs.getString("TheQues"), rs.getString("Time"), rs.getString("NickName"),rs.getInt("Answers"), rs.getInt("QuesRate"),"disabled"));
+				Questions.add(new Question(rs.getInt("Id"),rs.getString("Topics"), rs.getString("TheQues"), rs.getString("Time"), rs.getString("NickName"), rs.getInt("QuesRate"),"disabled"));
 				}
 				
 				else{ //meaning user NOT voted
-				Questions.add(new Question(rs.getInt("Id"),rs.getString("Topics"), rs.getString("TheQues"), rs.getString("Time"), rs.getString("NickName"),rs.getInt("Answers"), rs.getInt("QuesRate"),"active"));
+				Questions.add(new Question(rs.getInt("Id"),rs.getString("Topics"), rs.getString("TheQues"), rs.getString("Time"), rs.getString("NickName"), rs.getInt("QuesRate"),"active"));
 				}
 				
 			}
