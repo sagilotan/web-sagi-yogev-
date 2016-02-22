@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Web-app</title>
+  <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/BrowseTopics.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	
+	<script>
+var app = angular.module('myApp', []);
+app.controller('topicCtrl', function($scope, $http) {
+    $http.get("BrowseT").then(function(response) {
+        $scope.myData = response.data;
+    });   
+    
+});
+</script>
+	
+	<script type="text/javascript">
+
+	function startTime() {
+	var today = new Date()
+	var h = today.getHours()
+	var m = today.getMinutes()
+	var s = today.getSeconds()
+	// add a zero in front of numbers<10
+	m = checkTime(m)
+	s = checkTime(s)
+	document.getElementById('txt').innerHTML = h+":"+m+":"+s
+	t=setTimeout('startTime()',500)
+	}
+	function checkTime(i) {
+	if (i<10) {i="0" + i}
+	return i
+	}
+
+	</script>
+
+</head>
+<body onload="startTime()">
+
+
+<div id="txt"></div>
+
+<div class="container">
+
+<div class=jumbotron>
+	  <h1>Head Line</h1>
+	  <h3>This is some text.</h3>
+	</div>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <div class="navbar-brand">WebSiteName</div>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="HomePage.html">Home</a></li>
+      <li><a href="AddQuestion.html">add Question</a></li>
+      <li><a href="NewQuestions.html">New Questions</a></li> 
+      <li><a href="Questions.html">Browse Questions</a></li>
+      <li><a href="LeaderBoard.html">Users LeaderBoard</a></li>
+       <li class="active"><a href="BrowseTopics.html">Browse Topics</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="WelcomePage.html"><span class="glyphicon glyphicon-log-in"></span>Sign Out</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="row" ng-app="myApp" ng-controller="topicCtrl">
+<div class="col-sm-4 Topics" >
+<ol>
+<li ng-repeat="x in myData | orderBy : 'Rating' :true | limitTo:20"><a href="#{{ $index + 1 }}">{{x.Topic}}</a></li>
+</ol>
+
+</div >
+<div class="col-sm-4 ">
+<div id="{{ $index + 1 }}" ng-repeat="x in myData | orderBy : 'Rating' :true | limitTo:20"> <!-- reapet the topics -->
+<div class="Question" ng-repeat="q in x.QList | limitTo:20"><!-- reapet the questions in topic -->
+<h4>{{q.Id}}</h4>
+<h4>created by:{{q.UsNN}}</h4>
+<h4 >in:{{q.Time}}</h4>
+<h4 class="QTop">topics:{{q.Topics}}</h4>
+<div class="TheQ">
+{{q.Message}}
+</div>
+<p>rating:{{q.Rating}}</p>
+</div>
+</div>
+</div>
+
+</div>
+
+</div><!-- container -->
+
+
+	
+
+
+
+
+
+
+</body>
+
+  </html>

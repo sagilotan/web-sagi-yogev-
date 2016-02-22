@@ -1,0 +1,33 @@
+@CHARSET "windows-1255";
+
+[id="1"] {
+  display: none;
+}
+
+[id="1"]:target {
+  display: block;
+}
+
+[id="2"] {
+  display: none;
+}
+
+[id="2"]:target {
+  display: block;
+}
+
+[id="3"] {
+  display: none;
+}
+
+[id="3"]:target {
+  display: block;
+}
+
+[id="4"] {
+  display: none;
+}
+
+[id="4"]:target {
+  display: block;
+}
