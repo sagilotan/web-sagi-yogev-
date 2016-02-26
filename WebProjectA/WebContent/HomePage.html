@@ -7,6 +7,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+<script> 
+$(document).ready(function(){
+	$("#panel").hide();
+    $("#flip").click(function(){
+        $("#panel").slideToggle("slow");
+    });
+});
+</script>
 
 
 	<script type="text/javascript">
@@ -30,21 +40,30 @@
 	
 	</script>
 	
-	<script type="text/javascript">function myFunction() {
+	<script type="text/javascript">
+	function myFunction() {
 	    location.reload();
-	}</script>
+	}
+	    </script>
 
 </head>
 <body onload="startTime()">
 
 
-<div id="txt"></div>
+
 <button onclick="myFunction()">Reload page</button>
 <div class="container">
 
-<div class=jumbotron>
-	  <h1>Head Line</h1>
-	  <h3>This is some text.</h3>
+<div class="jumbotron HLCon">
+<div class="row">
+    <div class="col-xs-12 col-md-8 white">
+	  <h2 id="flip">Click here to see today message</h2>
+	  <h3 id="panel">Boo</h3>
+	  </div>
+	  <div class="col-xs-6 col-md-4">
+	  <h2  class="time" id="txt"></h2>
+	  </div>
+	  </div>
 	</div>
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -56,7 +75,8 @@
       <li><a href="AddQuestion.html">add Question</a></li>
       <li><a href="NewQuestions.html">New Questions</a></li> 
       <li><a href="Questions.html">Browse Questions</a></li> 
-      <li><a href="LeaderBoard.html">Users LeaderBoard</a></li> 
+      <li><a href="LeaderBoard.html">Users LeaderBoard</a></li>
+      <li><a href="BrowseTopics.html">Browse Topics</a></li> 
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="WelcomePage.html"><span class="glyphicon glyphicon-log-in"></span>Sign Out</a></li>

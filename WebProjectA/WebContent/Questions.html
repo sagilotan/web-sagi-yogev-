@@ -13,8 +13,25 @@
 var app = angular.module('myApp', []);
 app.controller('questionsCtrl', function($scope, $http) {
     $http.get("BrowseQ").then(function(response) {
-        $scope.myData = response.data;
-    });   
+    	$scope.myIndex=0;
+        $scope.myIndex2=19;
+    	$scope.myData = response.data;
+    	$scope.max=Object.keys(response.data).length;
+    }); 
+    
+    $scope.Next=function(){
+  	   if($scope.max>=$scope.myIndex2+1){
+  		   $scope.myIndex=$scope.myIndex2+1;
+  		   $scope.myIndex2=$scope.myIndex2+20;
+  	   }
+     };
+     
+     $scope.Before=function(){
+  	   if($scope.myIndex-20>=0){
+  	   $scope.myIndex2=$scope.myIndex-1;
+  	   $scope.myIndex=$scope.myIndex-20;
+  	   }
+     };
     
 });
 
@@ -71,6 +88,7 @@ app.controller('QvoteCtrl', function($scope) {
 
 <script> 
 $(document).ready(function(){
+	$("#panel").hide();
     $("#flip").click(function(){
         $("#panel").slideToggle("slow");
     });
@@ -102,14 +120,18 @@ $(document).ready(function(){
 </head>
 <body onload="startTime()">
 
-
-<div id="txt"></div>
-<div id="p1">dasds</div>
 <div class="container">
 
-<div class=jumbotron>
-	  <h1 id="flip">Head Line</h1>
-	  <h3 id="panel">This is some text.</h3>
+<div class="jumbotron HLCon">
+<div class="row">
+    <div class="col-xs-12 col-md-8 white">
+	  <h2 id="flip">Click here to see today message</h2>
+	  <h3 id="panel">Boo</h3>
+	  </div>
+	  <div class="col-xs-6 col-md-4">
+	  <h2  class="time" id="txt"></h2>
+	  </div>
+	  </div>
 	</div>
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -122,6 +144,7 @@ $(document).ready(function(){
       <li ><a href="NewQuestions.html">New Questions</a></li> 
       <li class="active"><a href="Questions.html">Browse Questions</a></li> 
       <li><a href="LeaderBoard.html">Users LeaderBoard</a></li> 
+      <li><a href="BrowseTopics.html">Browse Topics</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="WelcomePage.html"><span class="glyphicon glyphicon-log-in"></span>Sign Out</a></li>
@@ -131,23 +154,26 @@ $(document).ready(function(){
  
 </nav>
 
-<h3>Browse Questions:</h3>	
+<h3 class="white">Browse Questions:</h3>	
 
 <div ng-app="myApp" ng-controller="questionsCtrl">
 <div class="Question" ng-repeat="x in myData | orderBy : 'AvgRating' :true | limitTo:20">
-<h4>{{x.Id}}</h4>
-<h4>created by:{{x.UsNN}}</h4>
-<h4 >in:{{x.Time}}</h4>
-<h4 class="QTop">topics:{{x.Topics}}</h4>
+<div class="QTop">
+<h3>created by:{{x.UsNN}}</h3>
+<h3>in:{{x.Time}}</h3>
+<h4>topics:{{x.Topics}}</h4>
+</div>
 <div class="TheQ">
 {{x.Message}}
 </div>
-<p>rating:{{x.Rating}}</p>
 
-<div ng-controller="QvoteCtrl">
-<button class="btn btn-default {{x.UserVote}}" ng-click="QUpVote()">upvote</button>
-<button class="btn btn-default {{x.UserVote}}" ng-click="QDownVote()">downvote</button>
+<div class="row">
+<h4 class="col-md-4">rating:{{x.Rating}}</h4>
+<div class="col-md-8" ng-controller="QvoteCtrl">
+<button class="btn btn-success {{x.UserVote}}" ng-click="QUpVote()">Fan-tastic!</button>
+<button class="btn btn-danger {{x.UserVote}}" ng-click="QDownVote()">EXTERMINATE!</button>
 <p class="cantVote">You cant Vote</p>
+</div>
 </div>
 
 <div class="answerQ">
@@ -155,24 +181,29 @@ $(document).ready(function(){
 <label for="Ans">Write your answer:</label>
 <textarea name="{{x.Id}}" rows="6" cols="50" id="Ans">
 </textarea>
-<button type="submit" class="btn btn-default">Answer</button>
+<div class="AnswerBtn">
+<button  type="submit" class="btn btn-primary">Answer</button>
+</div>
 </form>
 </div>
 
-
+<h3><b><u>Answers:</u></b></h3>
 <div class="answers">
-<h4>{{x.Ans.Id}}</h4>
+<div class="ATop">
 <h4>created by:{{x.Ans.UsNN}}</h4>
-<h4 class="ATop">in:{{x.Ans.Time}}</h4>
+<h4 >in:{{x.Ans.Time}}</h4>
+</div>
 <div class="TheA">
 {{x.Ans.Message}}
 </div>
-<p>rating:{{x.Ans.Rating}}</p>
 
-<div ng-controller="AvoteCtrl2">
-<button class="btn btn-default {{x.Ans.UserVote}}" ng-click="AUpVote2()">upvote</button>
-<button class="btn btn-default {{x.Ans.UserVote}}" ng-click="ADownVote2()">downvote</button>
+<div class="row">
+<h4 class="col-md-4">rating:{{x.Ans.Rating}}</h4>
+<div class="col-md-8" ng-controller="AvoteCtrl2">
+<button class="btn btn-success {{x.Ans.UserVote}}" ng-click="AUpVote2()">Fan-tastic!</button>
+<button class="btn btn-danger {{x.Ans.UserVote}}" ng-click="ADownVote2()">EXTERMINATE!</button>
 <p class="cantVote">You cant Vote</p>
+</div>
 </div>
 
 </div>
@@ -183,23 +214,31 @@ $(document).ready(function(){
 
 <div class="trans">
 <div class="answers" ng-repeat="ans in x.List">
-<h4>{{ans.Id}}</h4>
+<div  class="ATop">
 <h4>created by:{{ans.UsNN}}</h4>
-<h4 class="ATop">in:{{ans.Time}}</h4>
+<h4>in:{{ans.Time}}</h4>
+</div>
 <div class="TheA">
 {{ans.Message}}
 </div>
-<p>rating:{{ans.Rating}}</p>
 
-<div ng-controller="AvoteCtrl">
-<button class="btn btn-default {{ans.UserVote}}" ng-click="AUpVote()">upvote</button>
-<button class="btn btn-default {{ans.UserVote}}" ng-click="ADownVote()">downvote</button>
+<div class="row">
+<p class="col-md-4">rating:{{ans.Rating}}</p>
+<div class="col-md-8" ng-controller="AvoteCtrl">
+<button class="btn btn-success {{ans.UserVote}}" ng-click="AUpVote()">upvote</button>
+<button class="btn btn-danger {{ans.UserVote}}" ng-click="ADownVote()">downvote</button>
 <p class="cantVote">You cant Vote</p>
 </div>
+</div>
+
 
 </div>
 </div>
 
+</div>
+<div class="NP">
+<button class="btn btn-info" ng-click="Before()">previous </button>
+<button class="btn btn-success" ng-click="Next()">next </button>
 </div>
 </div> <!--myApp(ng)-->
 

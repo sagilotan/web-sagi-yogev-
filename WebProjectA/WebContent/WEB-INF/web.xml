@@ -64,7 +64,6 @@
     <servlet-name>UDVA</servlet-name>
     <url-pattern>/UDVAns</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>browseQ</servlet-name>
     <servlet-class>BrowseQues</servlet-class>
@@ -73,7 +72,14 @@
     <servlet-name>browseQ</servlet-name>
     <url-pattern>/BrowseQ</url-pattern>
   </servlet-mapping>
-  
+  <servlet>
+    <servlet-name>browseT</servlet-name>
+    <servlet-class>BrowseTopics</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>browseT</servlet-name>
+    <url-pattern>/BrowseT</url-pattern>
+  </servlet-mapping>
   <servlet>
     <servlet-name>leaderBoard</servlet-name>
     <servlet-class>LeaderBoard</servlet-class>
@@ -82,7 +88,6 @@
     <servlet-name>leaderBoard</servlet-name>
     <url-pattern>/LeaderBoard</url-pattern>
   </servlet-mapping>
-  
   <resource-ref>
     <res-ref-name>jdbc/DatasourceA</res-ref-name>
     <res-type>javax.sql.DataSource</res-type>

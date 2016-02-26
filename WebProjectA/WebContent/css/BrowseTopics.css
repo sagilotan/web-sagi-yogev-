@@ -1,5 +1,7 @@
 @CHARSET "windows-1255";
 
+
+
 [id="1"] {
   display: none;
 }
@@ -29,5 +31,205 @@
 }
 
 [id="4"]:target {
+  display: block;
+}
+
+[id="5"] {
+  display: none;
+}
+
+[id="5"]:target {
+  display: block;
+}
+
+[id="6"] {
+  display: none;
+}
+
+[id="6"]:target {
+  display: block;
+}
+
+[id="7"] {
+  display: none;
+}
+
+[id="7"]:target {
+  display: block;
+}
+
+[id="8"] {
+  display: none;
+}
+
+[id="8"]:target {
+  display: block;
+}
+
+[id="9"] {
+  display: none;
+}
+
+[id="9"]:target {
+  display: block;
+}
+
+[id="10"] {
+  display: none;
+}
+
+[id="10"]:target {
+  display: block;
+}
+
+[id="11"] {
+  display: none;
+}
+
+[id="11"]:target {
+  display: block;
+}
+
+[id="12"] {
+  display: none;
+}
+
+[id="12"]:target {
+  display: block;
+}
+
+[id="13"] {
+  display: none;
+}
+
+[id="13"]:target {
+  display: block;
+}
+
+[id="14"] {
+  display: none;
+}
+
+[id="14"]:target {
+  display: block;
+}
+
+[id="15"] {
+  display: none;
+}
+
+[id="15"]:target {
+  display: block;
+}
+
+[id="16"] {
+  display: none;
+}
+
+[id="16"]:target {
+  display: block;
+}
+
+[id="17"] {
+  display: none;
+}
+
+[id="17"]:target {
+  display: block;
+}
+
+[id="18"] {
+  display: none;
+}
+
+[id="18"]:target {
+  display: block;
+}
+
+[id="19"] {
+  display: none;
+}
+
+[id="19"]:target {
+  display: block;
+}
+
+[id="20"] {
+  display: none;
+}
+
+[id="20"]:target {
+  display: block;
+}
+
+[id="21"] {
+  display: none;
+}
+
+[id="21"]:target {
+  display: block;
+}
+
+[id="22"] {
+  display: none;
+}
+
+[id="22"]:target {
+  display: block;
+}
+
+[id="23"] {
+  display: none;
+}
+
+[id="23"]:target {
+  display: block;
+}
+
+[id="24"] {
+  display: none;
+}
+
+[id="24"]:target {
+  display: block;
+}
+
+[id="25"] {
+  display: none;
+}
+
+[id="25"]:target {
+  display: block;
+}
+
+[id="26"] {
+  display: none;
+}
+
+[id="26"]:target {
+  display: block;
+}
+
+[id="27"] {
+  display: none;
+}
+
+[id="27"]:target {
+  display: block;
+}
+
+[id="28"] {
+  display: none;
+}
+
+[id="28"]:target {
+  display: block;
+}
+
+[id="29"] {
+  display: none;
+}
+
+[id="29"]:target {
   display: block;
 }

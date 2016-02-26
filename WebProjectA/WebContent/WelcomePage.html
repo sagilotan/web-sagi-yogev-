@@ -4,8 +4,31 @@
 	<title>Web-app</title>
   <link rel="stylesheet" type="text/css" href="bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/Welcome.css">
-	
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('loginCtrl', function($scope) {
+    $scope.LoginSubmit=function(){
+    	$.post("Login",{
+            username: $scope.name,
+            password: $scope.password
+        },function(data, status){
+        	var a=data;
+        	if(a==1){
+        	window.location.replace("http://localhost:8080/WebProjectA/HomePage.html");
+        	}
+        	else{
+             $scope.error="error in login,try again";
+        	}
+        });
+    	};});
+</script>
+
+
 
 	<script type="text/javascript">
 
@@ -34,32 +57,34 @@
 
 </head>
 <body onload="startTime()">
-	<div id="txt"></div>
+
 	<div class="container">
-		<div class=jumbotron>
-	  <h1>Head Line</h1>
-	  <h3>This is some text.</h3>
+		<div class="jumbotron HLCon ">
+	  <h1 class="HL">Doctor Who CQA Site</h1>
+	 <h2 >Welcome</h2>
 	</div>
-		<div class="row HPhelloPhoto">
+		<div class="row">
       <div class="col-sm-4 RegBox">
-        
-	<form role="form" method="get" action="Login">
+    <div ng-app="myApp"  >
+	<form role="form" ng-controller="loginCtrl"  ng-submit="LoginSubmit()">
   <div class="form-group">
+  <h4>{{error}}</h4>
     <label for="Unm">UserName:</label>
-    <input name="username" type="text" class="form-control" id="Unm" maxlength="10" required>
+    <input name="username" type="text" class="form-control" id="Unm" maxlength="10" required ng-model="name">
   </div>
   <div class="form-group">
     <label for="Pwd">Password:</label>
-    <input name="password" type="password" class="form-control" id="pwd" maxlength="8" required>
+    <input name="password" type="password" class="form-control" id="pwd" maxlength="8" required ng-model="password">
   </div>
-  
+  </div>
 	<div class="row">
 		<div class="col-sm-4">
-  <button type="submit" value="send"  class="btn btn-success">login</button>
+  <button type="submit" class="btn btn-success"  id="submit" value="login"> geronimo!</button>
 </div>
 </form>
+
 <div class="col-sm-8">
-<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#Reg">not registered?/sign up</button>
+<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#Reg">SignUp here</button>
 
 <div id="Reg" class="modal fade" role="dialog">
   <div class="modal-dialog">
@@ -69,7 +94,7 @@
         <h4 class="modal-title">Register</h4>
       </div>
       <div class="modal-body">
-      
+
         <form role="form" method="get" action="Register">
   <div class="form-group">
     <label for="Unm">UserName:</label>
@@ -91,11 +116,11 @@
     <label for="Img">Img URL:</label>
     <input name="ImgURL" type="text" class="form-control" id="Img">
   </div>
-  
+
   <button type="submit" value="send" class="btn btn-success">Register</button>
 
 </form>
-        
+
               </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -103,36 +128,31 @@
 </div>
 
 </div>
+</div><!-- modal container -->
+
+</div>
+</div>
 </div>
 
 
-</div>
-
-</div>
-	</div>
-  <div class="col-sm-8 HPPhoto">
-<h3>
-	join us or something..
-</h3>
+  <div class="col-sm-8">
+ <h1 class="whiteE">It's bigger on the inside</h1>
   </div>
+</div>
 
-</div>
 <div class="row">
  <div class="col-sm-4">
-   <h3>fetaure </h3>
+   <h3 class="white">Join us to ask everything about the doctor,and get asnwers from the biggest fans!</h3>
  </div>
  <div class="col-sm-4">
-<h3>fetaure </h3>
+<img src="D:\eclipseworkspace\WebProjectA\WebContent\Img\DoctorWho.jpg" class="Img1 img-thumbnail" alt="Doctor Who Img">
  </div>
  <div class="col-sm-4">
-<h3>fetaure </h3>
+<img src="D:\eclipseworkspace\WebProjectA\WebContent\Img\Tardis.jpg" class="Img1 img-thumbnail" alt="Doctor Who Img">
  </div>
-</div>
-<div class="row">
-something about the website...
 </div>
 <div class="row footer">
-<h3>footer </h3>
+<h4>&copy; website created by yogev and sagi </h4>
 </div>
 </div> <!--main container-->
 

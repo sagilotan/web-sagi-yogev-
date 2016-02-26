@@ -24,6 +24,7 @@ import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 import models.Answer;
 import models.Question;
 import models.User;
+import models.Topic;
 
 /**
  * Servlet implementation class NewQues
@@ -47,7 +48,7 @@ public class LeaderBoard extends HttpServlet {
 		// TODO Auto-generated method stub
 		ResultSet rs,gs = null,ms=null;
 		String s="select * from Users";
-		int Qsum,Qnum,Asum,Anum,k;  //Qsum:sum of Q rating,Qnum number of Q.A similar.k indector for 5 times
+		int Qsum,Qnum,Asum,Anum,k,i;  //Qsum:sum of Q rating,Qnum number of Q.A similar.k indector for 5 times
 		double temp;
 		try{
 			
@@ -61,6 +62,10 @@ public class LeaderBoard extends HttpServlet {
 			Collection <User> Users=new ArrayList<User>();
 			Collection <Question> Questions=new ArrayList<Question>();
 			Collection <Answer> Answers=new ArrayList<Answer>();
+			Collection <Topic> Topics=new ArrayList<Topic>();
+			String[] Array = {"Random","TheDoctor","1-8Doctor","9Doctor","109Doctor","11Doctor","12Doctor","Tardis","DoctorCompanion","RoseTyler",
+					"MickeySmith","DonnaNoble","MarthaJones","AmyPond","RoryWilliams","RiverSong","ClaraOswald","DoctorEnemies"
+					,"Daleks","CyberMen","TheMaster","WeepingAngels","Zygons","Sontarans","VashtaNerda","Odd","TheSilence","TheTvShow"};
 			rs=stmt.executeQuery(s);
 			String get="";
 			while (rs.next()){
@@ -114,9 +119,22 @@ public class LeaderBoard extends HttpServlet {
 				temp=(0.2*((double)Qsum/Qnum))+(0.8*((double)Asum/Anum));
 				
 				
+				i=0;
+				Topics=new ArrayList<Topic>();
 				
+				while (i<Array.length){
+					get="select SUM(AnsRate) AS TopicRate from Answers where UserName='" + rs.getString("UserName") + "' and"
+							+ " Id in (select Id from Ques where Topics LIKE '%" + Array[i] + "%')";  //getting all Q that user answered in specific topic
+					ms=stmt2.executeQuery(get);
+					ms.next();//always we can do next
+					
+					if(ms.getInt("TopicRate")>0){//only if he have some rating answers in the topic we add
+					Topics.add(new Topic(Array[i],ms.getInt("TopicRate")));	
+					}
+								i++;	
+				}
 				
-				Users.add(new User(rs.getString("NickName"),rs.getString("ImageURL"),temp,rs.getString("Descript"),Questions,Answers));
+				Users.add(new User(rs.getString("NickName"),rs.getString("ImageURL"),temp,rs.getString("Descript"),Questions,Answers,Topics));
 				
 				
 			}

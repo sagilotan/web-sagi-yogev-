@@ -21,7 +21,10 @@ import java.sql.Statement;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import org.apache.tomcat.dbcp.dbcp.BasicDataSource; 
+import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
+
+import com.google.gson.Gson; 
+
 
 /**
  * Servlet implementation class exmaple
@@ -45,8 +48,9 @@ public class example extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
-		String username = req.getParameter("username");
-		String password =req.getParameter("password");
+		String  username= req.getParameter("username");
+		String  password=req.getParameter("password");
+		
 		String insert ="CREATE TABLE Users("
 				+ "UserName varchar(10) PRIMARY KEY,"
 				+ "PassWord varchar(8) NOT NULL,"
@@ -56,6 +60,10 @@ public class example extends HttpServlet {
 				+ ")";
 				String b= "INSERT INTO Users VALUES('yogev','yogev','shalmon','','')";
 		String select="SELECT * FROM Users WHERE UserName='" + username + "' and PassWord='" + password + "'";
+		
+		PrintWriter out = res.getWriter();
+		Gson gson = new Gson();
+		
 		try{
 			
 			
@@ -140,7 +148,7 @@ public class example extends HttpServlet {
 		 
 		
 		
-		
+		String valid="";
 		
 		 ResultSet rs=stmt.executeQuery(select);
 		if(rs.next()){
@@ -148,12 +156,16 @@ public class example extends HttpServlet {
 			 session.setAttribute("status", "user");
 		     session.setAttribute("usName", username);
 		     session.setAttribute("usNN", rs.getString("NickName"));
-		     
-			res.sendRedirect("HomePage.html");
+		     valid="true";
+		     String JsonResult=gson.toJson(valid);
+			out.println("1");
+			
 		}
 		
 		else{
-			res.sendRedirect("WelcomePage.html");
+			valid="false";
+			String JsonResult=gson.toJson(valid);
+			out.println("0");
 		}
 		
 		rs.close();
@@ -167,7 +179,7 @@ public class example extends HttpServlet {
     		res.sendError(500);//internal server error
     	}
 		
-	
+		out.close();
 	
 		}
  
@@ -178,6 +190,7 @@ public class example extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 		doGet(req, res);
 	}
 

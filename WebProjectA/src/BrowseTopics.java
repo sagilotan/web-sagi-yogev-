@@ -52,12 +52,20 @@ public class BrowseTopics extends HttpServlet {
 		Collection <Question> Questions=new ArrayList<Question>();
 		try{
 			
+			Gson gson = new Gson();
+			Type type=new TypeToken<Collection<Topic>>() {}.getType();
 			Context context = new InitialContext();
 			BasicDataSource ds = (BasicDataSource)context.lookup("java:comp/env/jdbc/DatasourceA");
 			Connection conn = ds.getConnection();
 			Statement stmt=conn.createStatement();
 			Statement stmt2=conn.createStatement();
-			String[] Array = {"abc","def","ghi","jkl"};
+			
+			String[] Array = {"Random","TheDoctor","1-8Doctor","9Doctor","109Doctor","11Doctor","12Doctor","Tardis","DoctorCompanion","RoseTyler",
+					"MickeySmith","DonnaNoble","MarthaJones","AmyPond","RoryWilliams","RiverSong","ClaraOswald","DoctorEnemies"
+					,"Daleks","CyberMen","TheMaster","WeepingAngels","Zygons","Sontarans","VashtaNerda","Odd","TheSilence","TheTvShow"};
+			
+			
+			
 			while (i<Array.length){
 				
 				s="SELECT SUM(QuesRate) AS TopicRate FROM Ques WHERE Topics LIKE '%" + Array[i] + "%'" ;
@@ -85,10 +93,10 @@ public class BrowseTopics extends HttpServlet {
 			conn.close();
 			
 			
-			Gson gson = new Gson();
+			
 			
         	//convert from questions arraylist to json
-			Type type=new TypeToken<Collection<Topic>>() {}.getType();
+			
 			
 			String QuestionJsonResult=gson.toJson(Topics, type);
 			System.out.println(QuestionJsonResult);

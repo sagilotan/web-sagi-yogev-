@@ -29,6 +29,14 @@ app.controller('modelCtrl', function($scope) {
 
 </script>
 
+<script> 
+$(document).ready(function(){
+	$("#panel").hide();
+    $("#flip").click(function(){
+        $("#panel").slideToggle("slow");
+    });
+});
+</script>
 
 
 	<script type="text/javascript">
@@ -55,15 +63,18 @@ app.controller('modelCtrl', function($scope) {
 </head>
 <body onload="startTime()">
 
-
-<div id="txt"></div>
-
-
 <div class="container">
 
-<div class=jumbotron>
-	  <h1>Head Line</h1>
-	  <h3>This is some text.</h3>
+<div class="jumbotron HLCon">
+<div class="row">
+    <div class="col-xs-12 col-md-8 white">
+	  <h2 id="flip">Click here to see today message</h2>
+	  <h3 id="panel">Boo</h3>
+	  </div>
+	  <div class="col-xs-6 col-md-4">
+	  <h2  class="time" id="txt"></h2>
+	  </div>
+	  </div>
 	</div>
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -76,6 +87,7 @@ app.controller('modelCtrl', function($scope) {
       <li ><a href="NewQuestions.html">New Questions</a></li> 
       <li><a href="Questions.html">Browse Questions</a></li> 
       <li class="active"><a href="LeaderBoard.html">Users LeaderBoard</a></li> 
+      <li><a href="BrowseTopics.html">Browse Topics</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="WelcomePage.html"><span class="glyphicon glyphicon-log-in"></span>Sign Out</a></li>
@@ -85,7 +97,7 @@ app.controller('modelCtrl', function($scope) {
  
 </nav>
 
-<h3>Users Table Leaderboard:</h3>	
+<h3 class="white">Users Table Leaderboard:</h3>	
 
 <div ng-app="myApp" ng-controller="tableCtrl">
 
@@ -97,16 +109,20 @@ app.controller('modelCtrl', function($scope) {
         <th>User's NickName</th>
         <th>User's Photo</th>
         <th>User's Rating</th>
-       <th> User’s expertise profile</th>
+       <th> User’s expertise profile:top 5 topics-</th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="x in myData | orderBy:'Rating':true | limitTo:20">
-        <td>{{ $index + 1 }}</td>
-        <td><a ng-click="model()" data-toggle="modal" data-target="#{{ $index + 1 }}">{{x.UsNN}}</a></td>
+        <td><h3>{{ $index + 1 }}</h3></td>
+        <td><h3><a class="LBTN" ng-click="model()" data-toggle="modal" data-target="#{{ $index + 1 }}">{{x.UsNN}}</a></h3></td>
         <td><img src="{{x.Photo}}" class="img-rounded" width="100" height="100" alt="User's Photo"></td>
-        <td>{{x.Rating}}</td>
-        <td>?</td>
+        <td><h3>{{x.Rating}}</h3></td>
+        <td>
+        <ol>
+        <li ng-repeat="t in x.TList | orderBy:'Rating':true | limitTo:5"><h3>{{t.Topic}}-rank:{{t.Rating}}</h3></li>
+        </ol>
+        </td>
       </tr>
     </tbody>
   </table>
@@ -120,42 +136,52 @@ app.controller('modelCtrl', function($scope) {
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"><img src="{{x.Photo}}" class="img-rounded" width="100" height="100" alt="User's Photo">NickName:{{x.UsNN}}</h4>
-        <h5>Rating:{{x.Rating}}</h5>
+        <div class="modal-title ">
+        <img src="{{x.Photo}}" class="img-rounded" width="100" height="100" alt="User's Photo">
+        <h4 class="LBTH">NickName:{{x.UsNN}}</h4>
+        <h5 class="LBTH">Rating:{{x.Rating}}</h5>
+        </div>
       </div>
       <div class="modal-body">
         <p>User Description:</p>
        <p> {{x.Desc}}</p>
-       <p>???</p>
-       <h3>User’s 5 last asked questions</h3>
-       <div ng-repeat="q in x.QList">
-       <h4 >in:{{q.Time}}</h4>
-      <h4 class="QTop">topics:{{q.Topics}}</h4>
+       <p>User’s expertise profile:top 5 topics-</p>
+       <ol>
+        <li ng-repeat="t in x.TList | orderBy:'Rating':true | limitTo:5">{{t.Topic}}-rank:{{t.Rating}}</li>
+        </ol>
+       <h3><b><u>User’s 5 last asked questions:</u></b></h3>
+       <div class="QLB" ng-repeat="q in x.QList">
+       <div class="QTop">
+       <h3 >in:{{q.Time}}</h3>
+      <h4 >topics:{{q.Topics}}</h4>
+      </div>
        <div class="TheQ">
           {{q.Message}}
           </div>
-             <p>rating:{{q.Rating}}</p>
+             <h4>rating:{{q.Rating}}</h4>
        </div>
-       <h3>User’s 5 last answered questions</h3>
        
-       <div ng-repeat="a in x.AList">
-      
-       <h4 >in:{{a.Question.Time}}</h4>
-      <h4 class="QTop">topics:{{a.Question.Topics}}</h4>
+       <h3><b><u>User’s 5 last answered questions:</u></b></h3>
+       
+       <div class="QLB" ng-repeat="a in x.AList">
+      <div class="QTop">
+       <h3 >in:{{a.Question.Time}}</h3>
+      <h4 >topics:{{a.Question.Topics}}</h4>
+      </div>
        <div class="TheQ">
           {{a.Question.Message}}
           </div>
-             <p>rating:{{a.Question.Rating}}</p>
+          <p>rating:{{a.Question.Rating}}</p>
          
+         <h4><u>User Answer:</u></h4>
          <div class="TheA">
            {{a.Message}}
           </div>
-         <p>rating:{{a.Rating}}</p>    
-             
+         <h4>rating:{{a.Rating}}</h4>       
        </div>
        
        
-      </div>
+      </div><!-- modal body -->
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>

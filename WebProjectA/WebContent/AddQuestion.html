@@ -5,7 +5,33 @@
   <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	
+	<script>
+var app = angular.module('myApp', []);
+app.controller('tagCtrl', ['$scope', function($scope) {
+    $scope.list = "";
+    $scope.tag = '';
+    $scope.Add = function() {
+      if ($scope.tag) {
+        $scope.list=$scope.list+this.tag+',';
+        $scope.tag = '';
+      }
+    };
+  }]);
+</script>
+	
+	
+	<script> 
+$(document).ready(function(){
+	$("#panel").hide();
+    $("#flip").click(function(){
+        $("#panel").slideToggle("slow");
+    });
+});
+</script>
+	
 	<script type="text/javascript">
 
 	function startTime() {
@@ -29,14 +55,18 @@
 </head>
 <body onload="startTime()">
 
-
-<div id="txt"></div>
-
 <div class="container">
 
-<div class=jumbotron>
-	  <h1>Head Line</h1>
-	  <h3>This is some text.</h3>
+<div class="jumbotron HLCon">
+<div class="row">
+    <div class="col-xs-12 col-md-8 white">
+	  <h2 id="flip">Click here to see today message</h2>
+	  <h3 id="panel">Boo</h3>
+	  </div>
+	  <div class="col-xs-6 col-md-4">
+	  <h2  class="time" id="txt"></h2>
+	  </div>
+	  </div>
 	</div>
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -49,19 +79,57 @@
       <li><a href="NewQuestions.html">New Questions</a></li> 
       <li><a href="Questions.html">Browse Questions</a></li>
       <li><a href="LeaderBoard.html">Users LeaderBoard</a></li> 
+      <li><a href="BrowseTopics.html">Browse Topics</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="WelcomePage.html"><span class="glyphicon glyphicon-log-in"></span>Sign Out</a></li>
     </ul>
   </div>
 </nav>
+<h3 class="white">Add Question:</h3>
+<div>
+<div class="AddQues" ng-app="myApp" ng-controller="tagCtrl">
 
 <form role="form" method="get" action="AddQ">
   <div class="form-group">
-    <label for="topic">topics</label>
-    <input name="topics" type="text" class="form-control" id="topic">
+   <select name="tags" ng-model="tag">
+   <option value="Random">Random</option>
+    <option value="TheDoctor">TheDoctor</option>
+    <option value="1-8Doctor">1-8Doctor</option>
+    <option value="9Doctor">9Doctor</option>
+    <option value="10Doctor">10Doctor</option>
+    <option value="11Doctor">11Doctor</option>
+    <option value="12Doctor">12Doctor</option>
+    <option value="Tardis">Tardis</option>
+    <option value="DoctorCompanion">DoctorCompanion</option>
+     <option value="RoseTyler">RoseTyler</option>
+     <option value="MickeySmith">MickeySmith</option>
+     <option value="DonnaNoble">DonnaNoble</option>
+     <option value="MarthaJones">MarthaJones</option>
+     <option value="AmyPond">AmyPond</option>
+     <option value="RoryWilliams">RoryWilliams</option>
+     <option value="RiverSong">RiverSong</option>
+     <option value="ClaraOswald">ClaraOswald</option>
+     <option value="DoctorEnemies">DoctorEnemies</option>
+     <option value="Daleks">Daleks</option>
+     <option value="CyberMen">CyberMen</option>
+     <option value="TheMaster">TheMaster</option>
+      <option value="WeepingAngels">WeepingAngels</option>
+    <option value="Zygons">Zygons</option>
+    <option value="Sontarans">Sontarans</option>
+    <option value="VashtaNerda">VashtaNerda</option>
+    <option value="Odd">Odd</option>
+    <option value="TheSilence">TheSilence</option>
+    <option value="TheTvShow">TheTvShow</option> 
+  </select>
+  <button type="button" ng-click="Add()" class="btn btn-default">add tag</button>
+  
   </div>
-  <label for="Ques">The question</label>
+  <label class="white" for="Topics">Topic of question</label>
+  <div class="form-group">
+  <input type="text" ng-model="list" id="Topics" name="topics" readonly><p class="white">Tags Selected</p>
+  </div>
+  <label class="white" for="Ques">The question</label>
   <div class="form-group">
     <textarea name="message" rows="6" cols="50" class="form-contorl" id="Ques">
 </textarea>
@@ -70,8 +138,8 @@
   <button type="submit" class="btn btn-default">Upload</button>
 </form>
 
-
-
+</div>
+</div>
 </div>
 
 

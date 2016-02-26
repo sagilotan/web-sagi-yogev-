@@ -74,7 +74,7 @@ public class BrowseQues extends HttpServlet {
 				get="select * from VotedQues where Id=" + rs.getInt("Id") + "and UserName='" + usName + "'";
 				gs=st.executeQuery(get);
 				
-				get="select * from Answers where Id=" + rs.getInt("Id") + " order by AnsRate"; //get all the answers
+				get="select * from Answers where Id=" + rs.getInt("Id") + " order by AnsRate desc"; //get all the answers
 				ms=stmt2.executeQuery(get);
 				FirstAns=null;
 				if(ms.next()){    //first answer
